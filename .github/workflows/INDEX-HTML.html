@@ -1,0 +1,499 @@
+INDEX-HTML
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Interactivo | Franko Salgado Bonilla</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Estilos personalizados para la línea de tiempo */
+        .timeline-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item.active {
+            border-color: #b91c1c;
+            transform: scale(1.02);
+            background-color: #fff1f2;
+        }
+
+        /* Estilos para pestañas */
+        .tab-button.active {
+            border-color: #b91c1c;
+            background-color: #b91c1c;
+            color: #ffffff;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            height: 300px;
+        }
+
+        /* Ocultar elementos al imprimir/guardar PDF para que se vea limpio */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            header {
+                position: relative !important;
+                box-shadow: none !important;
+            }
+
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            .timeline-container {
+                overflow: visible !important;
+                flex-wrap: wrap !important;
+            }
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { 'primary': '#b91c1c', 'secondary': '#fca5a5', 'accent': '#ef4444' }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-stone-50 font-sans text-gray-900 antialiased">
+
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 no-print">
+        <div class="bg-white p-2 rounded-lg shadow-xl border border-gray-200 flex flex-col gap-2">
+            <p class="text-xs text-center font-bold text-gray-500">Idioma / Lang</p>
+            <button onclick="changeLanguage('es')"
+                class="px-3 py-1 bg-gray-100 hover:bg-primary hover:text-white rounded transition text-sm font-medium">ES
+                🇪🇸</button>
+            <button onclick="changeLanguage('en')"
+                class="px-3 py-1 bg-gray-100 hover:bg-primary hover:text-white rounded transition text-sm font-medium">EN
+                🇺🇸</button>
+            <button onclick="changeLanguage('fr')"
+                class="px-3 py-1 bg-gray-100 hover:bg-primary hover:text-white rounded transition text-sm font-medium">FR
+                🇫🇷</button>
+            <hr class="border-gray-300 my-1">
+            <button onclick="window.print()"
+                class="px-3 py-2 bg-gray-800 text-white hover:bg-black rounded transition text-sm flex items-center justify-center gap-2 font-bold shadow-md">
+                <span>📄</span> Descargar PDF
+            </button>
+        </div>
+    </div>
+
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40 shadow-red-900/10">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-2xl font-bold text-primary tracking-tight">Franko Salgado</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#inicio" class="text-gray-600 hover:text-primary transition-colors font-medium"
+                    data-i18n="nav_home">Inicio</a>
+                <a href="#trayectoria" class="text-gray-600 hover:text-primary transition-colors font-medium"
+                    data-i18n="nav_path">Trayectoria</a>
+                <a href="#logros" class="text-gray-600 hover:text-primary transition-colors font-medium"
+                    data-i18n="nav_achievements">Logros</a>
+                <a href="#habilidades" class="text-gray-600 hover:text-primary transition-colors font-medium"
+                    data-i18n="nav_skills">Habilidades</a>
+                <a href="#contacto" class="text-gray-600 hover:text-primary transition-colors font-medium"
+                    data-i18n="nav_contact">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <section id="inicio" class="pt-10 pb-20 border-b border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
+                <div class="flex justify-center md:justify-end">
+                    <img src="https://imgur.com/AYOFHcm.png" alt="Franko Salgado"
+                        class="rounded-full w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover shadow-2xl border-4 border-white ring-2 ring-primary/20">
+                </div>
+
+                <div class="md:col-span-2 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-2">Franko Salgado</h1>
+                    <p class="text-xl md:text-2xl text-primary font-medium mb-6" data-i18n="header_title">
+                        Chef Ejecutivo | Consultor Culinario y Digital | Conferencista
+                    </p>
+                    <div class="prose prose-lg text-gray-600 mx-auto md:mx-0 leading-relaxed">
+                        <p data-i18n="bio_p1">
+                            Chef Ejecutivo con más de 15 años de experiencia internacional (Costa Rica y México)
+                            liderando cocinas en hoteles de lujo (Marriott, InterContinental, Tabacón) y propiedades
+                            exclusivas. Experto en alta cocina, cocina molecular, fusión mediterránea, italiana y
+                            francesa.
+                        </p>
+                        <p class="mt-4" data-i18n="bio_p2">
+                            Además de la gestión culinaria, poseo experiencia como Consultor Digital para la industria
+                            gastronómica, desarrollando campañas de marketing con datos medibles, y como Conferencista
+                            culinario.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trayectoria" class="py-16 border-b border-gray-200">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary mb-4" data-i18n="path_title">Trayectoria Profesional</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" data-i18n="path_desc">
+                    Haz clic en cualquier puesto para ver los detalles completos de mis responsabilidades.
+                </p>
+            </div>
+
+            <div
+                class="timeline-container flex flex-nowrap overflow-x-auto pb-8 space-x-4 md:justify-start lg:justify-center px-2 snap-x">
+
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="1">
+                    <p class="font-bold text-primary text-lg">Chef Ejecutivo</p>
+                    <p class="text-sm text-gray-600 font-medium">Verano Estate</p>
+                    <p class="text-xs text-gray-400 mt-1">2022 - Actual</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="2">
+                    <p class="font-bold text-primary text-lg">Chef & Consultor</p>
+                    <p class="text-sm text-gray-600 font-medium">Franko's Kitchen</p>
+                    <p class="text-xs text-gray-400 mt-1">2022 - Actual</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="3">
+                    <p class="font-bold text-primary text-lg">Chef Docente</p>
+                    <p class="text-sm text-gray-600 font-medium">Inst. Vallarta</p>
+                    <p class="text-xs text-gray-400 mt-1">2020 - 2021</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="4">
+                    <p class="font-bold text-primary text-lg">Chef</p>
+                    <p class="text-sm text-gray-600 font-medium">Rest. D’Cortes</p>
+                    <p class="text-xs text-gray-400 mt-1">2019</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="5">
+                    <p class="font-bold text-primary text-lg">Chef Privado</p>
+                    <p class="text-sm text-gray-600 font-medium">Guanacaste, CR</p>
+                    <p class="text-xs text-gray-400 mt-1">2018</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="6">
+                    <p class="font-bold text-primary text-lg">Sous Chef Ej.</p>
+                    <p class="text-sm text-gray-600 font-medium">Hotel Royal Corin</p>
+                    <p class="text-xs text-gray-400 mt-1">2015</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="7">
+                    <p class="font-bold text-primary text-lg">Cocinero / Chef</p>
+                    <p class="text-sm text-gray-600 font-medium">Hotel ManGroovy</p>
+                    <p class="text-xs text-gray-400 mt-1">2013 - 2015</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="8">
+                    <p class="font-bold text-primary text-lg">Chef Ejecutivo</p>
+                    <p class="text-sm text-gray-600 font-medium">Rest. Oldnü</p>
+                    <p class="text-xs text-gray-400 mt-1">2012 - 2013</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="9">
+                    <p class="font-bold text-primary text-lg">Chef de Partie</p>
+                    <p class="text-sm text-gray-600 font-medium">InterContinental</p>
+                    <p class="text-xs text-gray-400 mt-1">2010 - 2012</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="10">
+                    <p class="font-bold text-primary text-lg">Chef Partie</p>
+                    <p class="text-sm text-gray-600 font-medium">Rest. Marea</p>
+                    <p class="text-xs text-gray-400 mt-1">2006 - 2011</p>
+                </div>
+                <div class="timeline-item bg-white p-4 rounded-lg shadow-md border-2 border-transparent w-48 flex-shrink-0 snap-center text-center"
+                    data-id="11">
+                    <p class="font-bold text-primary text-lg">Chef de Partie</p>
+                    <p class="text-sm text-gray-600 font-medium">Tabacon Resort</p>
+                    <p class="text-xs text-gray-400 mt-1">2007 - 2010</p>
+                </div>
+
+            </div>
+
+            <div id="experience-details"
+                class="mt-8 bg-white p-6 md:p-10 rounded-xl shadow-xl border border-gray-100 min-h-[200px] transition-all">
+            </div>
+        </section>
+
+        <section id="logros" class="py-16 border-b border-gray-200">
+            <h2 class="text-3xl font-bold text-center text-primary mb-12" data-i18n="achievements_title">Logros y
+                Reconocimientos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">🏆</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Certificat D'Excellence</h3>
+                    <p class="text-gray-600 text-sm">Le Cordon Bleu, París (2024)</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">🏅</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Reconocimiento Culinario</h3>
+                    <p class="text-gray-600 text-sm">Otorgado por Gastón Acurio, Lima (2024)</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">🎙️</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Conferencista Magistral</h3>
+                    <p class="text-gray-600 text-sm">1er Conronal de #Investur, Nayarit (2023)</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">🎖️</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Medalla a la Excelencia</h3>
+                    <p class="text-gray-600 text-sm">Otorgada por Gerard Dupont y Hugo Lombardi (en Tabacon Resort)</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">📺</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Chef en Vivo</h3>
+                    <p class="text-gray-600 text-sm">Impartición de clases de cocina en vivo para Teletica</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <span class="text-4xl mb-3 block">📸</span>
+                    <h3 class="font-semibold text-lg text-primary mb-2">Imagen Publicitaria</h3>
+                    <p class="text-gray-600 text-sm">Seleccionado como imagen para publicidad del PIMA</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades" class="py-16">
+            <h2 class="text-3xl font-bold text-center text-primary mb-12" data-i18n="nav_skills">Habilidades</h2>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Alta Cocina</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Cocina Molecular</li>
+                            <li>Fusión Mediterránea</li>
+                            <li>Cocina Francesa (Clásica y Moderna)</li>
+                            <li>Cocina Italiana (Auténtica)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Gestión y Digital</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Liderazgo de Equipos</li>
+                            <li>Costos y Mermas</li>
+                            <li>Marketing Gastronómico</li>
+                            <li>Consultoría Digital</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contacto" class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6" data-i18n="contact_title">Contacta Conmigo</h2>
+            <div class="mt-10 pt-6 border-t border-gray-700 flex flex-col justify-center items-center space-y-3">
+                <a href="tel:+523221606843" class="text-xl hover:text-secondary transition-colors font-bold">📞 +52 322
+                    160 6843</a>
+                <span class="text-lg text-gray-400">📍 Costa Rica & México</span>
+            </div>
+            <p class="mt-8 text-gray-500 text-sm">© 2024 Franko Salgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Base de Datos de Traducciones (Interfaz) ---
+        const translations = {
+            es: {
+                nav_home: "Inicio", nav_path: "Trayectoria", nav_achievements: "Logros", nav_skills: "Habilidades", nav_contact: "Contacto",
+                header_title: "Chef Ejecutivo | Consultor Culinario y Digital | Conferencista",
+                bio_p1: "Chef Ejecutivo con más de 15 años de experiencia internacional (Costa Rica y México) liderando cocinas en hoteles de lujo (Marriott, InterContinental, Tabacón). Experto en alta cocina, molecular, fusión mediterránea e italiana.",
+                bio_p2: "Además de la gestión culinaria, poseo experiencia como Consultor Digital para la industria gastronómica y conferencista.",
+                path_title: "Trayectoria Profesional",
+                path_desc: "Haz clic en cualquier puesto para ver los detalles.",
+                achievements_title: "Logros y Reconocimientos",
+                contact_title: "Contacta Conmigo"
+            },
+            en: {
+                nav_home: "Home", nav_path: "Career Path", nav_achievements: "Achievements", nav_skills: "Skills", nav_contact: "Contact",
+                header_title: "Executive Chef | Culinary & Digital Consultant | Speaker",
+                bio_p1: "Executive Chef with over 15 years of international experience (Costa Rica & Mexico) leading kitchens in luxury hotels. Expert in haute cuisine, molecular gastronomy, Mediterranean and Italian fusion.",
+                bio_p2: "Beyond culinary management, I have experience as a Digital Consultant for the gastronomic industry and as a culinary speaker.",
+                path_title: "Professional Career Path",
+                path_desc: "Click on any role to see details.",
+                achievements_title: "Key Achievements",
+                contact_title: "Contact Me"
+            },
+            fr: {
+                nav_home: "Accueil", nav_path: "Parcours", nav_achievements: "Réalisations", nav_skills: "Compétences", nav_contact: "Contact",
+                header_title: "Chef Exécutif | Consultant Culinaire et Numérique | Conférencier",
+                bio_p1: "Chef Exécutif avec plus de 15 ans d'expérience internationale (Costa Rica et Mexique) dirigeant des cuisines dans des hôtels de luxe. Expert en haute cuisine, gastronomie moléculaire, fusion méditerranéenne et italienne.",
+                bio_p2: "Au-delà de la gestion culinaire, j'ai de l'expérience en tant que Consultant Numérique pour l'industrie gastronomique et conférencier.",
+                path_title: "Parcours Professionnel",
+                path_desc: "Cliquez sur n'importe quel poste pour voir les détails.",
+                achievements_title: "Réalisations Clés",
+                contact_title: "Contactez-moi"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+        }
+
+        // --- 2. Base de Datos de TRAYECTORIA (Completa extraída del archivo original) ---
+        // NOTA: Para traducir estos textos específicos, habría que duplicar esta base de datos para cada idioma.
+        const experienceData = {
+            1: {
+                puesto: 'Chef Ejecutivo',
+                lugar: 'Verano Estate, Conchas Chinas, PV, México (2022 - Actualidad)',
+                desc: [
+                    'Liderazgo de la experiencia culinaria de alto nivel para un complejo residencial de lujo.',
+                    'Gestión integral de la cocina, creación de menús, control de costos y supervisión de personal.'
+                ]
+            },
+            2: {
+                puesto: 'Chef Privado & Consultor Digital',
+                lugar: 'Emprendimiento Propio (Franko\'s Kitchen) (2022 - Actualidad)',
+                desc: [
+                    'Servicios de chef privado de alto perfil en la región de Puerto Vallarta y Guanacaste.',
+                    'Consultoría digital para restaurantes: desarrollo e implementación de campañas de marketing gastronómico con análisis de datos medibles.'
+                ]
+            },
+            3: {
+                puesto: 'Chef Docente',
+                lugar: 'Instituto Gastronómico Instituto Vallarta, México (2020 - 2021)',
+                desc: [
+                    'Instructor culinario impartiendo técnicas de cocina profesional a nuevas generaciones de chefs.'
+                ]
+            },
+            4: {
+                puesto: 'Chef',
+                lugar: 'Restaurante D’Cortes, México (2019)',
+                desc: [
+                    'Colaboración en restaurante de alta cocina bajo la dirección del Chef Leopoldo Cortés.'
+                ]
+            },
+            5: {
+                puesto: 'Chef Privado',
+                lugar: 'Guanacaste, Costa Rica (2018)',
+                desc: [
+                    'Servicios de chef privado, colaborando directamente con el Chef Sebastian Couratier.'
+                ]
+            },
+            6: {
+                puesto: 'Sous Chef Ejecutivo',
+                lugar: 'Hotel Royal Corin, La Fortuna, Costa Rica (2015)',
+                desc: [
+                    'Segundo al mando de la operación culinaria del hotel, supervisando personal y gestión de cocina.'
+                ]
+            },
+            7: {
+                puesto: 'Cocinero / Chef',
+                lugar: 'Hotel ManGroovy, Autograph Collection (Marriott), Guanacaste (2013 - 2015)',
+                desc: [
+                    'Ejecución de estándares de calidad bajo la dirección del Chef Walter Andrés.'
+                ]
+            },
+            8: {
+                puesto: 'Chef Ejecutivo',
+                lugar: 'Restaurante Oldnü, Santa Ana, San José (2012 - 2013)',
+                desc: [
+                    'Liderazgo de cocina de nueva tendencia (molecular) y fusión mediterránea e italiana.'
+                ]
+            },
+            9: {
+                puesto: 'Chef de Partie',
+                lugar: 'Hotel Real Intercontinental, Santa Ana (2010 - 2012)',
+                desc: [
+                    'Supervisor en el Restaurante Alfredo (especialidad italiana).'
+                ]
+            },
+            10: {
+                puesto: 'Chef Partie',
+                lugar: 'Restaurante Marea, Prieta Beach Club (2006 - 2011)',
+                desc: [
+                    'Supervisión de personal, realización de pedidos y seguimiento de estándares.'
+                ]
+            },
+            11: {
+                puesto: 'Chef de Partie',
+                lugar: 'Tabacon Termal Resort, La Fortuna (2007 - 2010)',
+                desc: [
+                    'Segundo al mando (después del Sous Chef), encargado de montajes y producciones.'
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const detailsContainer = document.getElementById('experience-details');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            function updateExperienceDetails(id) {
+                const data = experienceData[id];
+                if (!data) return;
+
+                let descHtml = '<ul class="list-disc list-inside space-y-2 text-gray-700 mt-4">';
+                data.desc.forEach(item => {
+                    descHtml += `<li class="leading-relaxed">${item}</li>`;
+                });
+                descHtml += '</ul>';
+
+                // Efecto de fade-in
+                detailsContainer.style.opacity = '0';
+                setTimeout(() => {
+                    detailsContainer.innerHTML = `
+                        <h3 class="text-2xl font-bold text-primary mb-1">${data.puesto}</h3>
+                        <p class="text-lg font-semibold text-gray-500 border-b pb-2">${data.lugar}</p>
+                        ${descHtml}
+                    `;
+                    detailsContainer.style.opacity = '1';
+                }, 150);
+
+                timelineItems.forEach(item => {
+                    item.classList.remove('active', 'border-primary');
+                    if (item.dataset.id === id) {
+                        item.classList.add('active', 'border-primary');
+                        // Scroll automático en móvil para centrar la selección
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                });
+            }
+
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    updateExperienceDetails(item.dataset.id);
+                });
+            });
+
+            // Cargar el puesto más reciente al iniciar
+            if (timelineItems.length > 0) updateExperienceDetails('1');
+        });
+    </script>
+</body>
+
+</html>
