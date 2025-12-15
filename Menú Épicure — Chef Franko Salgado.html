@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menú Épicure — Chef Franko Salgado</title>
+
+    <!-- Tipografías elegantes: serif para títulos, sans para texto -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>.contact form{
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.contact input,
+.contact textarea{
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.contact button{
+  background: var(--carmin);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contact button:hover{
+  background: var(--turquesa-neon);
+  color: var(--negro-profundo);
+}
+        :root {
+            --carmin: #960018;
+            /* rojo carmín */
+            --negro-profundo: #0A0A0A;
+            /* negro profundo para texto */
+            --turquesa-neon: #1EE2C6;
+            /* líneas neón turquesa */
+            --blanco: #FFFFFF;
+            /* fondo primario */
+            --gris-suave: #F7F7F8;
+            /* secciones sutiles */
+            --acento-oscuro: #1b1b1b;
+        }
+
+        /* Reset breve */
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--blanco);
+            color: var(--negro-profundo);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Contenedor */
+        .container {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+        }
+
+        /* Banner Épicure (blanco y negro, con neon turquesa y marco carmín) */
+        .banner {
+            position: relative;
+            background: var(--blanco);
+            border: 8px solid var(--carmin);
+            padding: 56px 24px;
+            margin: 20px auto 0;
+            overflow: hidden;
+        }
+
+        .banner::before,
+        .banner::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--turquesa-neon);
+            box-shadow:
+                0 0 12px var(--turquesa-neon),
+                0 0 18px var(--turquesa-neon);
+        }
+
+        .banner::before {
+            top: 14px;
+        }
+
+        .banner::after {
+            bottom: 14px;
+        }
+
+        .banner-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .brand {
+            text-align: left;
+        }
+
+        .brand h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px, 6vw, 66px);
+            line-height: 1;
+            margin: 0 0 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .brand h1 span {
+            border-bottom: 8px solid var(--carmin);
+            padding-bottom: 8px;
+        }
+
+        .brand p {
+            font-family: "Inter", sans-serif;
+            font-size: clamp(14px, 2.2vw, 16px);
+            margin: 6px 0 0;
+            color: #2a2a2a;
+        }
+
+        .seal {
+            text-align: right;
+            border-left: 2px solid #eee;
+            padding-left: 24px;
+        }
+
+        .seal .logo {
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-size: clamp(22px, 3vw, 28px);
+            margin-bottom: 6px;
+            color: var(--acento-oscuro);
+        }
+
+        .seal .tag {
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            color: #444;
+        }
+
+        /* Barra de navegación */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--blanco);
+            border-top: 2px solid var(--carmin);
+            border-bottom: 2px solid var(--carmin);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .nav a {
+            font-family: "Inter", sans-serif;
+            text-decoration: none;
+            color: var(--negro-profundo);
+            font-weight: 600;
+            margin: 0 10px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            transition: all .2s ease;
+        }
+
+        .nav a:hover {
+            background: var(--gris-suave);
+            box-shadow: inset 0 -3px 0 var(--turquesa-neon);
+        }
+
+        /* Sección con título */
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .section h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(28px, 4vw, 38px);
+            margin: 0 0 16px;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: var(--turquesa-neon);
+            box-shadow: 0 0 10px var(--turquesa-neon);
+            margin-top: 10px;
+        }
+
+        .section .intro {
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            color: #3a3a3a;
+            max-width: 780px;
+        }
+
+        /* Grid de platillos */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 980px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .seal {
+                text-align: left;
+                border-left: none;
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tarjetas de platillos (estética blanco/negro + acentos carmín/turquesa) */
+        .card {
+            background: var(--blanco);
+            border: 2px solid var(--carmin);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 32px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-media {
+            position: relative;
+            background: #111;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.96;
+        }
+
+        .card-media .neon {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            height: 4px;
+            background: var(--turquesa-neon);
+            box-shadow:
+                0 0 8px var(--turquesa-neon),
+                0 0 14px var(--turquesa-neon);
+            border-radius: 2px;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 16px 16px 18px;
+            border-top: 2px solid var(--carmin);
+        }
+
+        .title {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            margin: 0 0 6px;
+            letter-spacing: 0.2px;
+        }
+
+        .meta {
+            font-family: "Inter", sans-serif;
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .desc {
+            font-family: "Inter", sans-serif;
+            font-size: 14.5px;
+            color: #2f2f2f;
+            margin: 0 0 12px;
+        }
+
+        .pair {
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            color: var(--acento-oscuro);
+            border-left: 3px solid var(--turquesa-neon);
+            padding-left: 10px;
+        }
+
+        /* Footer minimalista */
+        footer {
+            padding: 30px 0 50px;
+            background: var(--gris-suave);
+            border-top: 6px solid var(--carmin);
+        }
+
+        footer .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .signature {
+            font-family: "Playfair Display", serif;
+            font-size: 18px;
+        }
+
+        .contact {
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .contact a {
+            color: var(--negro-profundo);
+            text-decoration: none;
+            border-bottom: 2px solid var(--turquesa-neon);
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Banner épico (blanco/negro, carmín y neón turquesa) -->
+    <header class="banner">
+        <div class="container banner-inner">
+            <div class="brand">
+                <h1><span>MENÚ ÉPICURE</span></h1>
+                <p>Alta cocina internacional de vanguardia • técnicas sofisticadas • narrativa sensorial</p>
+            </div>
+            <div class="seal">
+                <div class="logo">Chef Franko Salgado</div>
+                <div class="tag">Puerto Vallarta • Riviera Nayarit</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="nav">
+        <div class="container">
+            <div>
+                <a href="#amuse">Amuse-bouche</a>
+                <a href="#entradas">Entradas</a>
+                <a href="#mar">Fuertes mar</a>
+                <a href="#tierra">Fuertes tierra</a>
+                <a href="#postres">Postres</a>
+                <a href="#coctel">Cóctel signature</a>
+            </div>
+            <div>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Amuse-bouche -->
+    <section id="amuse" class="section">
+        <div class="container">
+            <h2>Amuse-bouche</h2>
+            <p class="intro">Un inicio lúdico y elegante para despertar el paladar, con técnica molecular y precisión
+                estética.</p>
+
+            <div class="grid">
+                <!-- Esfera líquida de margarita de mezcal -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/amuse/esfera-margarita-mezcal.jpg"
+                            alt="Esfera líquida de margarita de mezcal con sal de gusano" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Esfera líquida de margarita de mezcal</h3>
+                        <div class="meta">Técnica: esferificación inversa • Detalle carmín • Línea neón turquesa</div>
+                        <p class="desc">Explosión cítrica con notas ahumadas de mezcal, sal de gusano y microgreens para
+                            un final vibrante.</p>
+                        <p class="pair"><strong>Maridaje:</strong> sal de gusano, aire de lima, cristal de chile seco.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Macaron salado de foie gras -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/amuse/macaron-foie-gras.jpg"
+                            alt="Macaron salado de foie gras con reducción de oporto" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Macaron salado de foie gras</h3>
+                        <div class="meta">Técnica: emulsión y montaje • Acabado carmín • Trazo turquesa</div>
+                        <p class="desc">Crujiente sutil con centro sedoso de foie, contraste frutal del oporto y un
+                            guiño floral.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Sauternes joven, brioche tostado, sal de vainilla.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Tartar de atún cola amarilla con esferas de soya -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/amuse/tartar-atun-esferas-soya.jpg" alt="Tartar de atún con esferas de soya" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Tartar de atún con esferas de soya</h3>
+                        <div class="meta">Técnica: corte preciso • aire de wasabi • perlas de soya</div>
+                        <p class="desc">Textura firme y fresca con umami concentrado en perlas, equilibrio cítrico y
+                            notas herbales.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Sauvignon Blanc mineral, brotes de shiso, aceite de
+                            sésamo negro.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entradas -->
+    <section id="entradas" class="section">
+        <div class="container">
+            <h2>Entradas</h2>
+            <p class="intro">Refinamiento en textura y contraste cromático; composición minimalista blanco/negro con
+                acentos carmín y turquesa.</p>
+
+            <div class="grid">
+                <!-- Ravioli transparente de langosta -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/entradas/ravioli-transparente-langosta.jpg"
+                            alt="Ravioli transparente de langosta con espuma de coral" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Ravioli transparente de langosta</h3>
+                        <div class="meta">Técnica: tapioca translúcida • espuma de coral • aceite de azafrán</div>
+                        <p class="desc">Delicadeza marina con ligereza aérea y perfume de azafrán, servido en vajilla
+                            minimalista.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Champagne blanc de blancs, aceite cítrico, sal marina
+                            fumée.</p>
+                    </div>
+                </article>
+
+                <!-- Ensalada de raíces baby -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/entradas/ensalada-raices-baby.jpg"
+                            alt="Ensalada de raíces baby con emulsión de cítricos" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Raíces baby & emulsión cítrica</h3>
+                        <div class="meta">Técnica: liofilización y deshidratado • polvo de aceituna negra</div>
+                        <p class="desc">Crujientes naturales sobre crema cítrica sedosa; notas salinas y fondo herbáceo.
+                        </p>
+                        <p class="pair"><strong>Maridaje:</strong> Riesling seco, aceite de eneldo, crujiente de quinoa.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platos fuertes de mar -->
+    <section id="mar" class="section">
+        <div class="container">
+            <h2>Platos fuertes — Mar</h2>
+            <p class="intro">Cocciones precisas, contraste térmico y platillos de estética limpia con acentos
+                eléctricos.</p>
+
+            <div class="grid">
+                <!-- Pesca blanca sobre risotto verde -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/mar/pesca-risotto-verde.jpg"
+                            alt="Pesca blanca sobre risotto verde con coliflor rostizada" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Pesca blanca & risotto verde</h3>
+                        <div class="meta">Técnica: sellado crujiente • emulsión verde • coliflor rostizada</div>
+                        <p class="desc">Filete de carne perlada sobre risotto herbáceo, crocante vegetal y matiz
+                            cítrico.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Albariño, aceite de limón, alcaparras fritas.</p>
+                    </div>
+                </article>
+
+                <!-- Langostino grill con coral espumado -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/mar/langostino-coral-espuma.jpg"
+                            alt="Langostino grill con coral espumado y trazo de azafrán" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Langostino & coral</h3>
+                        <div class="meta">Técnica: grill marcado • espuma coral • trazo de azafrán</div>
+                        <p class="desc">Dulzor marino y notas tostadas, coronado con espuma coral y trazo dorado.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Godello, microgreens cítricos, aceite de coral.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platos fuertes de tierra -->
+    <section id="tierra" class="section">
+        <div class="container">
+            <h2>Platos fuertes — Tierra</h2>
+            <p class="intro">Profundidad umami, glasés brillantes y texturas contrastantes sobre vajilla oscura.</p>
+
+            <div class="grid">
+                <!-- Wagyu A5 glaseado de miso -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/tierra/wagyu-miso-yuca.jpg"
+                            alt="Wagyu A5 con glaseado de miso y chips de yuca" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Wagyu A5 & miso</h3>
+                        <div class="meta">Técnica: cocción precisa • contraste térmico • acabado brillante</div>
+                        <p class="desc">Carne marmoleada de textura mantequilla, miso caramelizado y crujiente vegetal.
+                        </p>
+                        <p class="pair"><strong>Maridaje:</strong> Pinot Noir, puré sedoso, sal ahumada.</p>
+                    </div>
+                </article>
+
+                <!-- Pato laqueado agave & tamarindo -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/tierra/pato-agave-tamarindo.jpg"
+                            alt="Pato laqueado con miel de agave y reducción de tamarindo" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Pato laqueado</h3>
+                        <div class="meta">Técnica: laqueado • esferificación de arroz • montaje fino</div>
+                        <p class="desc">Crujiente de piel y centro jugoso, agridulce profundo y grano perfumado.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Syrah, brotes anisados, sésamo negro.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Postres -->
+    <section id="postres" class="section">
+        <div class="container">
+            <h2>Postres</h2>
+            <p class="intro">Finales sorprendentes: interacción en mesa, temperaturas contrastantes y estética pulida.
+            </p>
+
+            <div class="grid">
+                <!-- Esfera de chocolate con caramelo -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/postres/esfera-chocolate-caramelo.jpg"
+                            alt="Esfera de chocolate con caramelo salado y helado" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Esfera de chocolate & caramelo</h3>
+                        <div class="meta">Técnica: apertura en mesa • contraste térmico • crumble</div>
+                        <p class="desc">Caparazón brillante que revela maracuyá sedosa y caramelo salado aterciopelado.
+                        </p>
+                        <p class="pair"><strong>Maridaje:</strong> Pedro Ximénez, sal de cacao, chip de manzana.</p>
+                    </div>
+                </article>
+
+                <!-- Helado de lavanda con nube -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/postres/helado-lavanda-nube.jpg"
+                            alt="Helado de lavanda con crumble de almendra y nube perfumada" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Lavanda & nube</h3>
+                        <div class="meta">Técnica: nitrógeno • crumble • vapor etéreo</div>
+                        <p class="desc">Florales elegantes con crujiente de almendra y textura aérea perfumada.</p>
+                        <p class="pair"><strong>Maridaje:</strong> Moscato d’Asti, miel clara, ralladura de limón.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cóctel signature -->
+    <section id="coctel" class="section">
+        <div class="container">
+            <h2>Cóctel signature</h2>
+            <p class="intro">Clarificaciones, destilados artesanales y detalles luminosos para cerrar la experiencia.
+            </p>
+
+            <div class="grid">
+                <!-- Cóctel clarificado turquesa -->
+                <article class="card">
+                    <div class="card-media">
+                        <img src="images/coctel/clarificado-turquesa.jpg"
+                            alt="Cóctel clarificado con línea neón turquesa" />
+                        <div class="neon"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">Turquesa Épicure</h3>
+                        <div class="meta">Técnica: clarificación • garnish minimal • hielo cristal</div>
+                        <p class="desc">Perfil cítrico, fondo herbal y trazo eléctrico; equilibrio preciso y final
+                            persistente.</p>
+                        <p class="pair"><strong>Maridaje:</strong> piel de lima, spray de mezcal, sal carmín.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <footer id="contacto">
+        -- Contacto -->
+<footer id="contacto">
+  <div class="container foot">
+    <div class="signature">Chef Franko Salgado — Menú Épicure</div>
+    <div class="contact">
+      <form action="https://formspree.io/f/mvgqblyn" method="POST">
+        <label for="email">Tu correo:</label>
+        <input type="email" name="email" required placeholder="ejemplo@correo.com" />
+        <label for="message">Mensaje:</label>
+        <textarea name="message" required placeholder="Consulta, reserva o comentario..."></textarea>
+        <button type="submit">Enviar mensaje</button>
+      </form>
+      <p>También puedes contactarme directamente al <a href="tel:+523221606843">+52 322 160 6843</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    </footer>
+</body>
+
+</html>
